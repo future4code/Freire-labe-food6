@@ -11,7 +11,7 @@ const Footer = () => {
         <S.footer>
             <HomeOutlined
                 style={{
-                    // width: "40px", fontSize: "24px", color: "#838B83", color: selecionado === true ? red:gray  
+                     width: "40px", fontSize: "24px", color: "#838B83", // color: selecionado === true ? red:gray  
                 }}
 
             />
