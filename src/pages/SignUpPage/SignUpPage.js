@@ -1,8 +1,5 @@
 import React from "react";
-import styled from "styled-components";
 import Logo from '../../assets/logo-ifuture.png'
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { Input } from 'antd';
 import Back from '../../assets/back.svg'
 import { Header, GoBack, Container, Title, Description, Form, Button, Block } from './styled'
 import useForm from "../../hooks/useForm";
@@ -11,15 +8,12 @@ import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import InputAdornment from '@mui/material/InputAdornment';
 import InputLabel from '@mui/material/InputLabel';
-import FilledInput from '@mui/material/FilledInput';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { useNavigate } from "react-router-dom";
 import { goToLoginPage } from "../../routes/coordinator";
-
-
+import InputMask from "react-input-mask"
 
 
 const SignUpPage = () => {
@@ -32,15 +26,19 @@ const SignUpPage = () => {
     const navigate = useNavigate()
 
     const Send = (ev) => {
-        ev.preventDefault()
-        SignUp(form, navigate)
-        cleanFields()
+        if (form.password === form.confirm) {
+            ev.preventDefault()
+            SignUp(form, navigate)
+            cleanFields()
+        } else {
+            ev.preventDefault()
+            alert("Coloque a mesma senha nos dois campos!")
+        }
     }
-
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
-    };
+    }
 
 
     return (
@@ -54,7 +52,7 @@ const SignUpPage = () => {
             <Description>
                 Cadastrar
             </Description>
-            <Form >
+            <Form onSubmit={Send}>
                 <Block>
                     <TextField
                         fullWidth
@@ -81,23 +79,29 @@ const SignUpPage = () => {
                     />
                 </Block>
                 <Block>
-                    <TextField
-                        fullWidth
-                        name="cpf"
+                    <InputMask
+                        mask="999.999.999-99"
                         value={form.cpf}
+                        disabled={false}
+                        maskChar=" "
                         onChange={onChange}
-                        required
-                        label="CPF"
-                        helperText="teste"
-                        placeholder="000.000.000-00"
-                        size="large"
-                        pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
-                    />
+                    >
+                        {() => <TextField
+                            fullWidth
+                            required
+                            value={form.cpf}
+                            onChange={onChange}
+                            placeholder="000.000.000-00"
+                            label="CPF"
+                            name="cpf" />}
+                    </InputMask>
                 </Block>
                 <Block>
                     <FormControl sx={{ width: '20.5rem' }} variant="outlined">
                         <InputLabel htmlFor="outlined-password">Senha</InputLabel>
                         <OutlinedInput
+                        inputProps={{pattern: ".{6,}", title: "Mínimo 6 caracteres"}}
+                                               
                             required
                             fullWidth
                             name="password"
@@ -122,7 +126,8 @@ const SignUpPage = () => {
                 <Block>
                     <FormControl sx={{ width: '20.5rem' }} variant="outlined">
                         <InputLabel htmlFor="outlined-passwordconfirm">Confirmar</InputLabel>
-                        <OutlinedInput                            
+                        <OutlinedInput
+                        inputProps={{pattern: ".{6,}", title:"Mínimo 6 caracteres"}}                             
                             required
                             fullWidth
                             name="confirm"
