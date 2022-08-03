@@ -14,7 +14,7 @@ display: flex;
 align-items: center;
 `
 
-export const GoBack = styled.button`
+export const Before = styled.button`
 border: 0;
 background-color: inherit;
 `

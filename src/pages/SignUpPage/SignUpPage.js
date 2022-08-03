@@ -16,17 +16,24 @@ import InputLabel from '@mui/material/InputLabel';
 import FilledInput from '@mui/material/FilledInput';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import { useNavigate } from "react-router-dom";
+import { goToLoginPage } from "../../routes/coordinator";
+
 
 
 
 const SignUpPage = () => {
 
-    const { form, onChange, cleanFields, handleClickShowPassword, handleClickShowConfirm } = useForm({ name: "", email: "", cpf: "",
-     password: "", confirm: "", showPassword: false, showPasswordConfirm: false })
+    const { form, onChange, cleanFields, handleClickShowPassword, handleClickShowConfirm } = useForm({
+        name: "", email: "", cpf: "",
+        password: "", confirm: "", showPassword: false, showPasswordConfirm: false
+    })
+
+    const navigate = useNavigate()
 
     const Send = (ev) => {
         ev.preventDefault()
-        SignUp(form)
+        SignUp(form, navigate)
         cleanFields()
     }
 
@@ -39,7 +46,7 @@ const SignUpPage = () => {
     return (
         <Container>
             <Header>
-                <GoBack><img src={Back} /></GoBack>
+                <GoBack onClick={() => goToLoginPage(navigate)}><img src={Back} /></GoBack>
             </Header>
             <Title>
                 <img src={Logo} />
@@ -47,49 +54,55 @@ const SignUpPage = () => {
             <Description>
                 Cadastrar
             </Description>
-            <Form onSubmit={Send}>
+            <Form >
                 <Block>
                     <TextField
-                    fullWidth
+                        fullWidth
                         name="name"
                         value={form.name}
                         onChange={onChange}
                         required
                         label="Nome"
+                        placeholder="Nome e sobrenome"
                         size="large"
                     />
                 </Block>
                 <Block>
                     <TextField
-                    fullWidth
+                        fullWidth
                         name="email"
                         value={form.email}
                         onChange={onChange}
                         required
                         label="E-mail"
                         size="large"
+                        placeholder="email@email.com"
                         type='email'
                     />
                 </Block>
                 <Block>
                     <TextField
-                    fullWidth
+                        fullWidth
                         name="cpf"
                         value={form.cpf}
                         onChange={onChange}
                         required
                         label="CPF"
+                        helperText="teste"
+                        placeholder="000.000.000-00"
                         size="large"
+                        pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
                     />
                 </Block>
                 <Block>
-                <FormControl sx={{ width: '20.5rem' }} variant="outlined">
+                    <FormControl sx={{ width: '20.5rem' }} variant="outlined">
                         <InputLabel htmlFor="outlined-password">Senha</InputLabel>
                         <OutlinedInput
                             required
                             fullWidth
                             name="password"
                             label="Senha"
+                            placeholder="Mínimo 6 caracteres"
                             id="outlined-password"
                             type={form.showPassword ? 'text' : 'password'}
                             value={form.password}
@@ -104,16 +117,17 @@ const SignUpPage = () => {
                                 </IconButton>
                             }
                         />
-                    </FormControl>                    
+                    </FormControl>
                 </Block>
                 <Block>
-                <FormControl sx={{ width: '20.5rem' }} variant="outlined">
+                    <FormControl sx={{ width: '20.5rem' }} variant="outlined">
                         <InputLabel htmlFor="outlined-passwordconfirm">Confirmar</InputLabel>
-                        <OutlinedInput
+                        <OutlinedInput                            
                             required
                             fullWidth
                             name="confirm"
                             label="Senha"
+                            placeholder="Confirme a senha anterior"
                             id="outlined-passwordconfirm"
                             type={form.showPasswordConfirm ? 'text' : 'password'}
                             value={form.confirm}
@@ -128,7 +142,7 @@ const SignUpPage = () => {
                                 </IconButton>
                             }
                         />
-                    </FormControl>                    
+                    </FormControl>
                 </Block>
                 <Button>Criar</Button>
             </Form>

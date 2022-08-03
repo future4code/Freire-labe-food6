@@ -12,17 +12,20 @@ import InputLabel from '@mui/material/InputLabel';
 import FilledInput from '@mui/material/FilledInput';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import { useNavigate } from 'react-router-dom'
 
 
 
 
 const LoginPage = () => {
 
+    const navigate = useNavigate()
+
     const { form, onChange, cleanFields, handleClickShowPassword } = useForm({ email: "", password: "", showPassword: false })
 
     const Send = (ev) => {
         ev.preventDefault()
-        Login(form)
+        Login(form, navigate)
         cleanFields()
     }    
 
@@ -47,6 +50,7 @@ const LoginPage = () => {
                         onChange={onChange}
                         required
                         label="E-mail"
+                        placeholder="email@email.com"
                         type='email'
                         variant="outlined"
                     />
@@ -59,6 +63,7 @@ const LoginPage = () => {
                             fullWidth
                             name="password"
                             label="Senha"
+                            placeholder="Mínimo 6 caracteres"
                             id="outlined-adornment-password"
                             type={form.showPassword ? 'text' : 'password'}
                             value={form.password}
