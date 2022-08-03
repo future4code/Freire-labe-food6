@@ -1,6 +1,7 @@
 import 'antd/dist/antd.css';
-import { AudioOutlined, UserOutlined, ShoppingCartOutlined, HomeOutlined } from '@ant-design/icons';
-import *as S from "./Styled"
+import {UserOutlined, ShoppingCartOutlined, HomeOutlined } from '@ant-design/icons';
+import *as S from "./Styled";
+
 
 
 
