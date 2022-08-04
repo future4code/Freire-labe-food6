@@ -10,10 +10,4 @@ export const goToLoginPage = (navigate) => {
     navigate("/login")
 }
 
-export const goToEditProfile = (navigate) => {
-    navigate("/editprofile")
-}
 
-export const goToProfilePage = (navigate) => {
-    navigate("/profile")
-}
