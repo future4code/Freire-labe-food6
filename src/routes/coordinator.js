@@ -10,7 +10,4 @@ export const goToLoginPage = (navigate) => {
     navigate("/login")
 }
 
-export const goToHome = (navigate)=> {
-    navigate("/")
-}
 

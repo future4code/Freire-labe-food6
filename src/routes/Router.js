@@ -4,15 +4,14 @@ import LoginPage from "../pages/LoginPage/LoginPage"
 import SignUpPage from "../pages/SignUpPage/SignUpPage"
 import TestPage from "../pages/TestPage/TestPage"
 import HomePage from "../pages/HomePage/HomePage"
+import ProfilePage from "../pages/ProfilePage/ProfilePage"
+import EditProfile from "../pages/EditProfile/EditProfile"
 
 const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/signup" element={<SignUpPage />} />
-                <Route path="/addadress" element={<AddAdressPage />} />
+
             </Routes>
         </BrowserRouter>
     )
