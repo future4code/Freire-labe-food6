@@ -26,10 +26,10 @@ export const StyledTypography = styled(Typography)`
 `
 
 export const ProfileContainer = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
+    /* width: 100%; */
+    /* display: flex; */
+    /* justify-content: space-around; */
+    /* flex-direction: column; */
 
     h2{
         font-size: 16px;
@@ -74,5 +74,13 @@ export const StyledTypography2 = styled(Typography)`
         border: none;
         cursor: pointer;
     }
+`
+
+export const Header = styled.div`
+width: 100%;
+height: 4rem;
+border-bottom: 0.5px solid rgba(0, 0, 0, 0.25);
+display: flex;
+align-items: center;
 `
 

@@ -10,9 +10,16 @@ import Edit from "../../assets/Edit.png"
 import { StyledTypography2 } from "./style";
 import { useState } from "react";
 import { BASE_URL } from "../../constants/url";
+import { goToEditProfile } from "../../routes/coordinator";
+import { useNavigate } from "react-router-dom";
+import {Header} from './style'
 
 const ProfilePage = () => {
+    const navigate = useNavigate()
+
     const [profile, setProfile] = useState({})
+
+    localStorage.setItem("profiles", JSON.stringify(profile));
 
         useEffect(() => {
             axios
@@ -30,12 +37,30 @@ const ProfilePage = () => {
             })
         },[])
 
+        const [oders, setOrders] = useState([])
+
+        useEffect(() => {
+            axios.get(`${BASE_URL}/orders/history`, {
+                headers: {
+                    auth: localStorage.getItem("token")
+                }
+            })
+            .then((res) => {
+                console.log("PEDIDOS",res)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+        },)
+
     return (
         <ProfileScreenContainer>
+            <Header>
+            </Header>
             <ProfileContainer>
                 <div className="Edit">
                 <h2>{profile.name}</h2>
-                <button><img src={Edit}/></button> 
+                <button onClick={()=>goToEditProfile(navigate)} ><img src={Edit}/></button> 
                 </div>
                 <h2>{profile.email}</h2>
                 <h2>{profile.cpf}</h2>
