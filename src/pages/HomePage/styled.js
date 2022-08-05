@@ -10,6 +10,8 @@ h1:first-child{
     border-bottom: 1px solid #CDC8B1;
     width: 100%;
 }
+
+
 `
 
 export const titulo = styled.h1`
