@@ -13,6 +13,8 @@ import { BASE_URL } from "../../constants/url";
 import { goToEditProfile } from "../../routes/coordinator";
 import { useNavigate } from "react-router-dom";
 import {Header} from './style'
+import { goToEditAdress } from "../../routes/coordinator";
+
 
 const ProfilePage = () => {
     const navigate = useNavigate()
@@ -68,7 +70,7 @@ const ProfilePage = () => {
     <StyledCard sx={{ minWidth: 390 }}>
         <CardContent>
             <StyledTypography2 sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
-                Endereço cadastrado <button><img src={Edit}/></button>
+                Endereço cadastrado <button onClick={()=>goToEditAdress(navigate)}><img src={Edit}/></button>
             </StyledTypography2>
             <StyledTypography sx={{ fontSize: 16 }} component="div">
                 {profile.address    } 
@@ -77,7 +79,7 @@ const ProfilePage = () => {
     </StyledCard>
             <OrderHistory>
                 <p>Histórico de pedidos</p>
-                <div class="Path-Copy"></div>
+                <div className="Path-Copy"></div>
             </OrderHistory>
         </ProfileScreenContainer>
     )

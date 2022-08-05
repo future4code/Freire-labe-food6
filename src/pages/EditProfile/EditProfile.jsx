@@ -41,6 +41,7 @@ const EditProfile = () => {
     }
 
     const currentName = JSON.parse(localStorage.getItem("profiles"))
+    console.log(currentName)
         
 
     return (
