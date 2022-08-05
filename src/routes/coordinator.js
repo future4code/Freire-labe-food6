@@ -10,4 +10,6 @@ export const goToLoginPage = (navigate) => {
     navigate("/login")
 }
 
-
+export const HomePage = (navigate) => {
+    navigate ("/")
+}

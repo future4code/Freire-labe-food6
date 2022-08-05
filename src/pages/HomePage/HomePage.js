@@ -9,15 +9,16 @@ import { SearchOutlined } from '@ant-design/icons';
 import *as S from "./styled";
 import { GetRestaurante } from '../../services/services';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { BASE_URL } from '../../constants/url';
 
 
 const HomePage = () => {
     const navigate = useNavigate()
-    const [food, setFood] = useState([])
     const [pesquisa, setPesquisa] = useState("");
     const [value, setValue] = useState('one');
     const [restaurant, setRestaurant] = useState(undefined)
-    const [restaurantCategory,setRestaurantCategory]=useState([])
+    const [restaurantCategory,setRestaurantCategory]=useState("")
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -25,6 +26,24 @@ const HomePage = () => {
     const onChangePesquisa = (event) => {
         setPesquisa(event.target.value);
     };
+
+     const GetRestaurante = () => {
+        axios.get(`${BASE_URL}/restaurants`, {
+              headers:{
+                auth:localStorage.getItem("token")
+              }
+        })
+       
+            .then((res) => {
+                setRestaurantCategory(res.data.restaurants);  
+                
+            })
+            .catch((err) => {
+                console.log(err.response);
+            });
+         
+    };
+    
 
     useEffect(() => {
         GetRestaurante()
@@ -50,16 +69,35 @@ const HomePage = () => {
         if(restaurantCategory !== undefined){
             console.log('Categoria',restaurantCategory)
         }; 
+
+        const renderCategory = restaurantCategory && restaurantCategory.map((data)=>{
+            return(
+    
+                <div>
+                    
+                    <div>
+                      <div>{data.name}</div>
+                    </div>
+                    <div>
+                      <p>{data.deliveryTime} min</p>
+                      <p>frete R${data.shipping},00</p>
+                    </div>                
+                </div>
+            )
+        })
     
             return (
                 <S.container>
                     <S.titulo> <b> Ifuture </b></S.titulo>
-                    <S.input
+                   
+                     <S.input
+                     
                         type="text"
                         id="txtBusca"
                         placeholder="Restaurante"
                         onChange={onChangePesquisa}
-                    />
+                    /> 
+                  
         
         
                     <Box sx={{ width: '100%' }}>
