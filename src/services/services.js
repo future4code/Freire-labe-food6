@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { BASE_URL } from '../constants/url'
 import { goToAddAdressPage } from '../routes/coordinator'
 
+
 export const Login = (body, navigate) => {
     axios.post(`${BASE_URL}/login`, body)
         .then((res) => {
@@ -43,7 +44,6 @@ export const AddAdress = (body) => {
 
 
 export const GetRestaurante = () => {
-
     axios.get(`${BASE_URL}/restaurants`, {
           headers:{
             auth:localStorage.getItem("token")
@@ -51,8 +51,7 @@ export const GetRestaurante = () => {
     })
    
         .then((res) => {
-           console.log(res.data);
-           
+            console.log(res.data.restaurants);  
             
         })
         .catch((err) => {

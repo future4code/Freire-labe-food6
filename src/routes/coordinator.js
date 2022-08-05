@@ -13,7 +13,9 @@ export const goToLoginPage = (navigate) => {
 export const goToEditProfile = (navigate) => {
     navigate("/editprofile")
 }
-
+export const HomePage = (navigate) => {
+    navigate ("/")
+}
 export const goToProfilePage = (navigate) => {
     navigate("/profile")
 }

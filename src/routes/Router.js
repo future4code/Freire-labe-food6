@@ -8,10 +8,14 @@ import ProfilePage from "../pages/ProfilePage/ProfilePage"
 import EditProfile from "../pages/EditProfile/EditProfile"
 import EditAdress from "../pages/EditAdress/EditAdress"
 
+
 const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
+            <Route index element={<HomePage/>}/> 
+            <Route path="addresspage" element={< AddAdressPage/>} />
+            <Route path="loginpage" element={< LoginPage/>} />
                 <Route path="/editadress" element={<EditAdress/>}/>
                 <Route path="/editprofile" element={<EditProfile/>}/>
                 <Route path="/profile" element={<ProfilePage/>}/>
