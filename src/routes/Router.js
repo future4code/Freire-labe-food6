@@ -7,6 +7,7 @@ import HomePage from "../pages/HomePage/HomePage"
 import ProfilePage from "../pages/ProfilePage/ProfilePage"
 import EditProfile from "../pages/EditProfile/EditProfile"
 import EditAdress from "../pages/EditAdress/EditAdress"
+import Cart from "../pages/CartPage/Cart"
 
 
 const Router = () => {
@@ -23,6 +24,7 @@ const Router = () => {
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/signup" element={<SignUpPage/>}/>
                 <Route path="/addadress" element={<AddAdressPage/>}/>
+                <Route path="/cart" element={<Cart/>}/>
             </Routes>
         </BrowserRouter>
     )
