@@ -41,25 +41,3 @@ export const AddAdress = (body) => {
             console.log(err.response)
         })
 }
-
-
-export const GetRestaurante = () => {
-    axios.get(`${BASE_URL}/restaurants`, {
-          headers:{
-            auth:localStorage.getItem("token")
-          }
-    })
-   
-        .then((res) => {
-            console.log(res.data.restaurants);  
-            
-        })
-        .catch((err) => {
-            console.log(err.response);
-        });
-     
-};
-
-
-
-

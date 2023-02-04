@@ -7,22 +7,23 @@ import HomePage from "../pages/HomePage/HomePage"
 import ProfilePage from "../pages/ProfilePage/ProfilePage"
 import EditProfile from "../pages/EditProfile/EditProfile"
 import EditAdress from "../pages/EditAdress/EditAdress"
-
-
+import Feed from "../pages/Feed/feed"
+import SinupAdress from "../pages/SinupAdress/sinupAdress"
 const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
             <Route index element={<HomePage/>}/> 
-            <Route path="addresspage" element={< AddAdressPage/>} />
             <Route path="loginpage" element={< LoginPage/>} />
-                <Route path="/editadress" element={<EditAdress/>}/>
-                <Route path="/editprofile" element={<EditProfile/>}/>
                 <Route path="/profile" element={<ProfilePage/>}/>
-                <Route path="/" element={<TestPage/>}/>
+                <Route path="/edit" element={<EditProfile/>}/>  
+                <Route path="/edit" element={<EditProfile/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/signup" element={<SignUpPage/>}/>
-                <Route path="/addadress" element={<AddAdressPage/>}/>
+                <Route path="/editadress" element={<EditAdress/>}/>
+                <Route path="/feed" element={<Feed/>}/> 
+                <Route path="/addresspage" element={<AddAdressPage/>}/>  
+                <Route path="/sinupAdress" element={<SinupAdress/>}/> 
             </Routes>
         </BrowserRouter>
     )

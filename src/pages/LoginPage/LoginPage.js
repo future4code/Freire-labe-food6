@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from '../../assets/logo-ifuture.png'
-import { Container, Title, Description, Form, Button, Block, Sign } from './styled'
+import { Container, Title, Description, Button,Form, Block, Sign, Main, P, DivPassword, InputMaterial } from './styled'
 import useForm from '../../hooks/useForm'
 import { Login } from "../../services/services";
-import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -11,79 +10,109 @@ import InputLabel from '@mui/material/InputLabel';
 import IconButton from '@mui/material/IconButton';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { useNavigate } from 'react-router-dom'
-
-
-
+import axios from "axios";
+import {BASE_URL} from "../../constants/url"
 
 const LoginPage = () => {
 
-    const navigate = useNavigate()
+     const navigate = useNavigate()
 
-    const { form, onChange, cleanFields, handleClickShowPassword } = useForm({ email: "", password: "", showPassword: false })
+     const {email, setEmail}= useState("")
+     const {password, setPassword}= useState("")
+     const {showPassword, setShowPassword}= useState(false)
+     const {errMail, setErrMail}= useState("")
+     const {errPassword, setErrPassword} = useState("")
+     const {checkErrMail, setCheckErrMail}= useState(false)
+     const {checkErrPassword, setCheckErrPassword}= useState(false)
 
-    const Send = (ev) => {
-        ev.preventDefault()
-        Login(form, navigate)
-        cleanFields()
-    }    
+     const handleClickShowPassword =()=>{
+             setShowPassword(!showPassword)
+     }
 
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    }
+     
+     const onChangeHandler = event => {
+        setEmail(event.target.value);
+     };
+
+
+     const onSubmitLogin = (event)=>{
+        event.preventDefault()
+
+        const userLogin = {
+            email,
+            password
+        }
+        loginApi(userLogin)
+     }
+        
+ 
+     const loginApi = async (body)=>{
+        await axios.post (`${BASE_URL}/login`)
+        .then((res)=>{
+            console.log(res.data);
+            setEmail('')
+            setPassword('')
+            setErrMail('')
+            setErrPassword('')
+            setCheckErrMail(false)
+            setCheckErrPassword(false)
+        }) 
+
+        .catch((err)=>{
+            if (err.response.data.message.inclues("senha incorreta")) {
+                setErrPassword(err.response.data.message)
+                setCheckErrPassword('true')
+            } else {
+                setErrMail(err.response.data.message)
+                setCheckErrMail('true')
+            }
+            // console.log(err.response);
+        })
+     }
+
 
     return (
-        <Container>
-            <Title>
-                <img src={Logo} />
-            </Title>
-            <Description>
-                Entrar
-            </Description>
-            <Form onSubmit={Send}>
-                <Block>
-                    <TextField
-                        fullWidth
-                        name="email"
-                        value={form.email}
-                        onChange={onChange}
-                        required
-                        label="E-mail"
-                        placeholder="email@email.com"
-                        type='email'
-                        variant="outlined"
-                    />
-                </Block>
-                <Block>
-                    <FormControl sx={{ width: '20.5rem' }} variant="outlined">
-                        <InputLabel htmlFor="outlined-adornment-password">Senha</InputLabel>
-                        <OutlinedInput
-                            required
-                            fullWidth
-                            name="password"
-                            label="Senha"
-                            placeholder="Mínimo 6 caracteres"
-                            id="outlined-adornment-password"
-                            type={form.showPassword ? 'text' : 'password'}
-                            value={form.password}
-                            onChange={onChange}
-                            endAdornment={
-                                <IconButton
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                    edge="end"
-                                >
-                                    {form.showPassword ? <VisibilityOff /> : <Visibility />}
-                                </IconButton>
-                            }
-                        />
-                    </FormControl>
-                </Block>
-                <Button>Entrar</Button>
+        <Main>
+
+            <P> Entrar </P>
+
+            <Form onSubmit={onSubmitLogin}>
+            <InputMaterial
+                error={checkErrMail}
+                helperText={checkErrMail ? errMail:""}
+                id="outlined-basic" 
+                label="email"
+                type="email"
+                variant="outlined"
+                placeholder={"email@email.com"}
+                value={email}
+                onChange={onChangeHandler}
+            />
+            <DivPassword> 
+            <InputMaterial
+                error={checkErrPassword}
+                helperText={checkErrPassword ? errPassword:""}
+                id="outlined-basic"
+                label="password"
+                type={showPassword? 'password' : 'text'}
+                variant="outlined"
+                placeholder={" Mínimo 6 caracteres "}
+                value={password}
+                onChange={(event)=> setPassword(event.target.value)}
+                inputProps={{minLength:6,title:"a senha deve conter no mínimo 6 caracteres"}}
+             />
+              <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+                </DivPassword>
+
+            <Button type='submit'>Entrar</Button>
             </Form>
-            <Sign>
-                <p>Não possui cadastro?</p><a href="/signup">Clique aqui.</a>
-            </Sign>
-        </Container>
+</Main>
     )
 }
 

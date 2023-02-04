@@ -4,11 +4,10 @@ import {primaryColor, neutralColor} from "./colors"
 const theme = createTheme({
   palette: {
     primary: {
-      main: primaryColor,
-      contrastText: "white"
+      main: "#556cd6",
     },    
-    text: {
-        primary: neutralColor        
+    secondary: {
+        main: "#19857b"       
     }
   }
 })

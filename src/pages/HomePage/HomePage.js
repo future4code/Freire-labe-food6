@@ -17,7 +17,7 @@ const HomePage = () => {
     const navigate = useNavigate()
     const [pesquisa, setPesquisa] = useState("");
     const [value, setValue] = useState('one');
-    const [restaurant, setRestaurant] = useState(undefined)
+    const [restaurant, setRestaurant] = useState([])
     const [restaurantCategory,setRestaurantCategory]=useState("")
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -35,8 +35,9 @@ const HomePage = () => {
         })
        
             .then((res) => {
-                setRestaurantCategory(res.data.restaurants);  
-                
+                setRestaurant(res.data.restaurants);  
+                console.log("🚀 ~ file: HomePage.js ~ line 39 ~ .then ~ setRestaurant", setRestaurant)
+                console.log('deu certo')
             })
             .catch((err) => {
                 console.log(err.response);
@@ -44,6 +45,19 @@ const HomePage = () => {
          
     };
     
+
+    
+    const selectRestaurantType = (data) => {
+        const productList = restaurant && restaurant.filter((product) => {
+            if (product.category === data) {
+                return true
+            } 
+            return false 
+        })
+        setRestaurantCategory(productList)    
+    }
+    if(restaurantCategory !== undefined){
+    }; 
 
     useEffect(() => {
         GetRestaurante()
@@ -55,22 +69,9 @@ const HomePage = () => {
         })
         setRestaurantCategory(productList)   
       },[]);
-    
-      const selectRestaurantType = (data) => {
-          console.log(data)
-          const productList = restaurant && restaurant.filter((product) => {
-            if (product.category === data) {
-                return true
-            } 
-            return false 
-        })
-        setRestaurantCategory(productList)    
-      }
-        if(restaurantCategory !== undefined){
-            console.log('Categoria',restaurantCategory)
-        }; 
 
         const renderCategory = restaurantCategory && restaurantCategory.map((data)=>{
+            
             return(
     
                 <div>
@@ -85,7 +86,6 @@ const HomePage = () => {
                 </div>
             )
         })
-    
             return (
                 <S.container>
                     <S.titulo> <b> Ifuture </b></S.titulo>
@@ -128,7 +128,7 @@ const HomePage = () => {
                     <S.restaurants>
                         <S.img src="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&w=400" />
         
-                        <S.nomeRestaurante> Nome do Restaurante </S.nomeRestaurante>
+                        <S.nomeRestaurante> {restaurantCategory?.name} </S.nomeRestaurante>
         
                         <div>
                             <S.span> Entrega </S.span>

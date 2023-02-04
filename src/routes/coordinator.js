@@ -1,5 +1,5 @@
 export const goToAddAdressPage = (navigate) => {
-    navigate("/addadress")
+    navigate("/addresspage")
 }
 
 export const goBack = (navigate) => {
@@ -22,4 +22,13 @@ export const goToProfilePage = (navigate) => {
 
 export const goToEditAdress = (navigate) => {
     navigate("/editadress")
+}
+
+export const goToSignUpAdress = (navigate) =>{
+    navigate("/sinupAdress")
+}
+
+
+export const goToFeed = (navigate) => {
+    navigate("/feed")
 }
